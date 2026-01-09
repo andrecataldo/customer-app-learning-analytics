@@ -10,7 +10,7 @@ Machine Learning não supervisionado.
 
 Objetivo: estabelecer padrões e decisões estruturais antes da evolução técnica.
 
-- [ ] 0.1 Definir naming convention e estrutura de tabelas  
+- [x] 0.1 Definir naming convention e estrutura de tabelas  
   (bronze / silver / gold / dims / views)
 - [ ] 0.2 Definir estratégia de chaves (event_key)
 - [ ] 0.3 Definir política de partição e incremental load
