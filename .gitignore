@@ -1,0 +1,19 @@
+.DS_Store
+.vscode/
+.idea/
+
+__pycache__/
+*.pyc
+.venv/
+.env
+
+.ipynb_checkpoints/
+
+# Data files (não versionar logs reais)
+*.csv
+*.parquet
+*.delta
+*.json
+*.zip
+
+*.drawio.bak
