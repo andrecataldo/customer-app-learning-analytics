@@ -8,7 +8,7 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
    - `execution_log_yyyymmdd.csv` (ex.: `execution_log_20260107.csv`)
    - Dataset *wide* derivado de query SQL (não é “evento puro”)
 2. **Fonte semântica/contratual (normativa)**
-   - `[CONTEXTS] lrs-event-logs (24dez25).xlsm`
+   - `contexts_lrs_event_logs.xlsx`
    - Abas-chave: `event_dictionary (andre)`, `local-collections-tables`, `lists`, `global-tables`
 3. **Fonte de geração**
    - Query SQL que gera o `execution_log_yyyymmdd.csv`
@@ -30,21 +30,26 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 ## 🟪 EPIC P — Contextos e Dicionários (Contrato Semântico)
 
 **Objetivo:** materializar o significado do log e reduzir ambiguidade semântica.
+**Status:** ✅ Concluído  
+**Contrato ativo:** `ctx_manifest v1`
 
-- [ ] P.1 Ingerir planilha `[CONTEXTS] lrs-event-logs (24dez25).xlsm` (RAW)
-- [ ] P.2 Criar `ctx_event_fields` (dicionário de campos)
-- [ ] P.3 Criar `ctx_event_categories` e regras campo×categoria
-- [ ] P.4 Criar `ctx_list_items` (status, tipos, skills, perguntas)
-- [ ] P.5 Criar `ctx_local_collections_raw` e `ctx_users` (curated)
-- [ ] P.6 Criar views de apoio (`vw_event_dictionary`, etc.)
+- [x] P.1 Ingerir Excel normativo (1 aba = 1 tabela)
+- [x] P.2 Criar ctx_event_fields
+- [x] P.3 Criar ctx_event_categories
+- [x] P.4 Criar ctx_list_items e local collections
+- [x] P.5 Criar global tables
+- [x] P.6 Validar PKs (heurística + overrides)
+- [x] P.7 Gerar manifest versionado (manifest_ctx_v1.yml)
 
 ---
 
 ## 🟫 EPIC 1 — Bronze (Ingestão Raw Governada)
 
 **Objetivo:** preservar fielmente as fontes derivadas, com evidência e lineage.
+**Status:** 🟡 Em preparação  
+**Pré-requisito:** EPIC P concluído e validado
 
-- [ ] 1.1 Refatorar ingest para `execution_log_yyymmdd.csv` (delimiter `;`)
+- [ ] 1.1 Refatorar ingest para `execution_log_yyymmdd.csv` (delimiter `,`)
 - [ ] 1.2 Adicionar lineage (`source_file`, `ingested_at`)
 - [ ] 1.3 Garantir schema estável (tudo string, sem inferência)
 - [ ] 1.4 Executar diagnósticos:
