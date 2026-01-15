@@ -30,6 +30,7 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 ## 🟪 EPIC P — Contextos e Dicionários (Contrato Semântico)
 
 **Objetivo:** materializar o significado do log e reduzir ambiguidade semântica.
+
 **Status:** ✅ Concluído  
 **Contrato ativo:** `ctx_manifest v1`
 
@@ -46,10 +47,11 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 ## 🟫 EPIC 1 — Bronze (Ingestão Raw Governada)
 
 **Objetivo:** preservar fielmente as fontes derivadas, com evidência e lineage.
-**Status:** 🟡 Em preparação  
+
+**Status:** 🟢 WIP  
 **Pré-requisito:** EPIC P concluído e validado
 
-- [ ] 1.1 Refatorar ingest para `execution_log_yyymmdd.csv` (delimiter `,`)
+- [x] 1.1 Refatorar ingest para `execution_log_yyymmdd.csv` (delimiter `,`)
 - [ ] 1.2 Adicionar lineage (`source_file`, `ingested_at`)
 - [ ] 1.3 Garantir schema estável (tudo string, sem inferência)
 - [ ] 1.4 Executar diagnósticos:
