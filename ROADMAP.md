@@ -48,22 +48,28 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 
 **Objetivo:** preservar fielmente as fontes derivadas, com evidência e lineage.
 
-**Status:** 🟢 WIP  
+**Status:** ✅ DONE  
 **Pré-requisito:** EPIC P concluído e validado
 
 - [x] 1.1 Refatorar ingest para `execution_log_yyymmdd.csv` (delimiter `,`)
-- [ ] 1.2 Adicionar lineage (`source_file`, `ingested_at`)
-- [ ] 1.3 Garantir schema estável (tudo string, sem inferência)
-- [ ] 1.4 Executar diagnósticos:
-  - total de linhas
-  - linhas por `registration_id`
-  - evidência de explosão por join
+- [x] 1.2 Adicionar lineage (`source_file`, `ingested_at_utc`)
+- [x] 1.3 Garantir schema estável (tudo string, sem inferência)
+- [x] 1.4 Executar diagnósticos:
+  - [x] total de linhas (101.802)
+  - [x] linhas por `registration_id` (dataset wide e esparso)
+  - [x] evidência de explosão por join (sem duplicidade estrutural)
+
+> **Nota técnica:** Os diagnósticos confirmaram que o Bronze representa um dataset derivado, wide e esparso por design, adequado como camada raw governada, porém inadequado para consumo analítico direto. A reconciliação semântica e a normalização de ausências (`""` → `NULL`) devem ocorrer apenas no Silver.
+
 
 ---
 
 ## 🟩 EPIC 2 — Silver (Reconciliação Semântica)
 
 **Objetivo:** tornar os dados confiáveis **e semanticamente interpretáveis**.
+
+**Status:** 🟢 WIP  
+**Pré-requisito:** EPIC 1 concluído e validado
 
 - [ ] 2.1 Criar `event_ts`
 - [ ] 2.2 Normalizar vazios, strings e status
