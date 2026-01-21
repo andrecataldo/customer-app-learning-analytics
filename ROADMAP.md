@@ -16,13 +16,26 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 
 ---
 
+## 📍 Status Geral do Projeto
+
+- EPIC P - Contextos e Dicionários: ✅ Concluído
+- EPIC 1 - Bronze (Ingestão Raw Governada): ✅ Concluído
+- EPIC 2 - Silver (Reconciliação Semântica): ✅ Concluído
+- EPIC 3 - Gold (Modelo Analítico / Star Schema): ⏳ Planejado
+- EPIC 4 - Star Schema + Semantic Model: 🔜
+- EPIC 5 - Dashboard + Validação: 🔜
+- EPIC 6 - Machine Learning Não Supervisionado (Exploratório): 🔜
+- EPIC 7 - Documentação + TCC (Resultados Preliminares): 🔜
+
+---
+
 ## 🟦 EPIC 0 — Preparação e Convenções
 
 **Objetivo:** estabelecer decisões estruturais e contratos antes da execução técnica.
 
 - [x] 0.1 Definir naming convention e estrutura de tabelas
 - [x] 0.2A Definir **proposta** de estratégia de chaves (`event_key`) *(pré-EPIC 1.1)*
-- [ ] 0.2B Definir **critérios de ativação** da `event_key` *(pós-Silver)*
+- [x] 0.2B Definir **critérios de ativação** da `event_key` *(implementado no EPIC 2.6)*
 - [ ] 0.3 Definir política de partição e incremental load *(documental)*
 
 ---
@@ -68,15 +81,19 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 
 **Objetivo:** tornar os dados confiáveis **e semanticamente interpretáveis**.
 
-**Status:** 🟢 WIP  
+**Status:** ✅ DONE  
 **Pré-requisito:** EPIC 1 concluído e validado
 
-- [ ] 2.1 Criar `event_ts`
-- [ ] 2.2 Normalizar vazios, strings e status
-- [ ] 2.3 Derivar `event_family` (usando `ctx_*`)
-- [ ] 2.4 Aplicar política MVP de deduplicação por família
-- [ ] 2.5 Executar métricas antes/depois (impacto do tratamento)
-- [ ] 2.6 Ativar `event_key` *(se critérios do EPIC 0.2B forem atendidos)*
+- [x] 2.1 Criar `event_ts`
+- [x] 2.2 Normalizar vazios, strings e status
+- [x] 2.3 Derivar `event_family` (usando `ctx_*`)
+- [x] 2.4 Aplicar política MVP de deduplicação por família
+- [x] 2.5 Executar métricas antes/depois (impacto do tratamento)
+- [x] 2.6 Ativar `event_key` (gate explícito + evidência de unicidade)
+
+📌 **Resultado:** tabela `silver_execution_log` criada, validada semanticamente e persistida.  
+📌 Evidência técnica detalhada registrada em checkpoint dedicado.
+
 
 ---
 
