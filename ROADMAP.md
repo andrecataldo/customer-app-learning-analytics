@@ -21,7 +21,7 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 - EPIC P - Contextos e Dicionários: ✅ Concluído
 - EPIC 1 - Bronze (Ingestão Raw Governada): ✅ Concluído
 - EPIC 2 - Silver (Reconciliação Semântica): ✅ Concluído
-- EPIC 3 - Gold (Modelo Analítico / Star Schema): ⏳ Planejado
+- EPIC 3 - Gold (Modelo Analítico / Star Schema): ⚙️ WIP
 - EPIC 4 - Star Schema + Semantic Model: 🔜
 - EPIC 5 - Dashboard + Validação: 🔜
 - EPIC 6 - Machine Learning Não Supervisionado (Exploratório): 🔜
