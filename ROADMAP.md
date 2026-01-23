@@ -96,30 +96,42 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 
 
 ---
-
 ## 🟨 EPIC 3 — Gold (Fato + Views Analíticas)
 
 **Objetivo:** estruturar consumo analítico sem distorcer o grão.
 
-- [ ] 3.1 Criar fato MVP wide: `gd_fact_execution_events`
-- [ ] 3.2 Criar views analíticas:
-  - `vw_execution_events`
-  - `vw_daily_metrics`
-  - `vw_registration_funnel`
-- [ ] 3.3 (Opcional) Criar fatos por `event_family`
+**Status:** ✅ DONE  
+**Pré-requisito:** EPIC 2 concluído e validado
+
+- [x] **3.1 Gold / Modelagem**
+  - gd_dim_event_category (view)
+  - gd_fact_execution_events (view) — 1:1 com silver_execution_log
+  - Derivação de category_id (parcial + controlada) + monitoramento
+- [x] **3.2 Gold / Consumo**
+  - vw_execution_events
+  - vw_daily_metrics
+  - vw_registration_funnel
+  - vw_category_mapping_health
+
+📘 Inventário oficial do modelo disponível em docs/catalog/OBJECT_REGISTRY.md.
 
 ---
 
-## 🟧 EPIC 4 — Star Schema + Semantic Model
+## 🟧 EPIC 4 — Gold Hardening & Semantic Coverage
 
 **Objetivo:** consolidar modelo dimensional para BI e ML.
+- Expandir mapeamento de meeting_group_code
+- Classificar tech_question / interaction_message / risk_assessment via ctx_ ou regras explícitas
+- Meta: reduzir category_unknown global para < 30%
+
+**Status:** ⏳ PLANNING  
+**Pré-requisito:** EPIC 3 concluído e validado
 
 - [ ] 4.1 Dimensões MVP (date, user, org, registration, sco, meeting)
 - [ ] 4.2 Estratégia para múltiplos papéis de usuário
 - [ ] 4.3 Relacionamentos corretos no Semantic Model
 - [ ] 4.4 Medidas DAX mínimas
 - [ ] 4.5 Validação SQL × Power BI
-
 ---
 
 ## 🟥 EPIC 5 — Dashboard + Validação
