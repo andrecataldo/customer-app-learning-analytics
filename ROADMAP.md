@@ -119,19 +119,91 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 
 ## 🟧 EPIC 4 — Gold Hardening & Semantic Coverage
 
-**Objetivo:** consolidar modelo dimensional para BI e ML.
-- Expandir mapeamento de meeting_group_code
-- Classificar tech_question / interaction_message / risk_assessment via ctx_ ou regras explícitas
-- Meta: reduzir category_unknown global para < 30%
+**Objetivo:** consolidar o Gold Layer com foco em governança, explicabilidade
+e evolução segura da cobertura semântica para BI e ML, respeitando as
+restrições do dado de origem.
 
-**Status:** ⏳ PLANNING  
+- Tornar explícitas e auditáveis regras já existentes no Gold
+- Qualificar e, quando possível, reduzir `category_unknown` com evidência
+- Evitar inferência implícita ou regressão do modelo
+
+**Status:** ⏳ IN PROGRESS  
 **Pré-requisito:** EPIC 3 concluído e validado
 
-- [ ] 4.1 Dimensões MVP (date, user, org, registration, sco, meeting)
-- [ ] 4.2 Estratégia para múltiplos papéis de usuário
-- [ ] 4.3 Relacionamentos corretos no Semantic Model
-- [ ] 4.4 Medidas DAX mínimas
-- [ ] 4.5 Validação SQL × Power BI
+---
+
+### 4.1 Gold Hardening (Governança & Explicabilidade)
+
+**Objetivo:** fortalecer o Gold v1 sem alterar grão, fatos ou histórico,
+transformando regras implícitas em artefatos explícitos e versionáveis.
+
+- [x] **4.1.1 Hardening de classificação de _meeting_ via regras explícitas**
+  - Análise determinística de `meeting_group_code`
+  - Identificação de códigos semanticamente estáveis
+  - Declaração explícita de regras (`rule_id`, `rationale`, `source`)
+  - Aplicação via overlay semântico (sem reprocessamento)
+  - Auditoria por evento (`applied_rule_id`)
+  - **Resultado:** hardening do modelo, sem redução de `category_unknown`
+  - Evidência registrada em:
+    - `CHECKPOINT_2026-01-24_EPIC-4.1.1.md`
+
+Critério de aceite:
+- Regras explícitas, rastreáveis e auditáveis
+- Não regressão do Gold v1
+- Overlay sem duplicação de linhas
+
+---
+
+### 4.2 Meeting Unknown Qualification & Semantic Coverage (orientado a evidência)
+
+**Objetivo:** qualificar e, quando suportado por contexto adicional,
+reduzir `category_unknown` para eventos do tipo *meeting*.
+
+- [ ] **4.2.1 Qualificação estrutural de `meeting unknown` (sem redução)**
+  - Análise de eventos `category_unknown`
+  - Identificação de padrões de ausência de contexto:
+    - `meeting_code = 'CODIGO'`
+    - ausência de `sco_categories`
+  - Criação de subtipos explicativos de unknown (ex.: unknown estrutural)
+  - Aumento de explicabilidade sem alterar `category_id`
+
+- [ ] **4.2.2 Semantic recovery via contexto externo (condicional)**
+  - Investigação de dicionários e metadados externos
+  - Criação de `ctx_` explícito quando houver evidência
+  - Aplicação via overlay auditável
+  - Medição de impacto real na redução de unknown
+
+Critério de aceite:
+- Redução de `category_unknown` apenas quando suportada por evidência externa
+- Regras versionáveis, explicáveis e reversíveis
+
+---
+
+### 4.3 Estratégia para múltiplos papéis de usuário
+- Identificação de papéis por evento (ator vs sujeito)
+- Modelagem consistente para análise de engajamento e desempenho
+
+---
+
+### 4.4 Relacionamentos corretos no Semantic Model
+- Cardinalidade adequada entre fato e dimensões
+- Direção de filtros consistente
+- Eliminação de ambiguidade
+
+---
+
+### 4.5 Medidas DAX mínimas
+- Métricas de volume, recorrência e cobertura
+- Métricas educacionais básicas
+- Validação cruzada com SQL
+
+---
+
+### 4.6 Validação SQL × Power BI
+- Consistência entre views SQL e visualizações
+- Checks de não-regressão
+- Prontidão para BI e ML
+
 ---
 
 ## 🟥 EPIC 5 — Dashboard + Validação
