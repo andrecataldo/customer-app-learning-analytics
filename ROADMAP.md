@@ -156,26 +156,35 @@ Critério de aceite:
 
 ### 4.2 Meeting Unknown Qualification & Semantic Coverage (orientado a evidência)
 
-**Objetivo:** qualificar e, quando suportado por contexto adicional,
-reduzir `category_unknown` para eventos do tipo *meeting*.
+**Objetivo:** qualificar e, quando suportado por contexto adicional verificável,
+reduzir `category_unknown` para eventos do tipo *meeting*, preservando rigor
+metodológico e evitando inferência implícita.
 
-- [ ] **4.2.1 Qualificação estrutural de `meeting unknown` (sem redução)**
-  - Análise de eventos `category_unknown`
-  - Identificação de padrões de ausência de contexto:
-    - `meeting_code = 'CODIGO'`
-    - ausência de `sco_categories`
-  - Criação de subtipos explicativos de unknown (ex.: unknown estrutural)
-  - Aumento de explicabilidade sem alterar `category_id`
+- [x] **4.2.1 Qualificação estrutural de `meeting unknown` (sem redução)** — ✅ CONCLUÍDO
+  - Análise empírica de eventos `meeting` com `category_unknown`
+  - Identificação de causas predominantes de ausência semântica:
+    - `meeting_code = 'CODIGO'` (placeholder estrutural)
+    - ausência de `sco_categories` (falta de dicionário semântico)
+  - Criação de subtipos explicativos de unknown:
+    - `STRUCTURAL_CODE_PLACEHOLDER`
+    - `NO_SCO_CATEGORIES`
+  - Medição do limite superior teórico de *semantic recovery* (~33%)
+  - Aumento de explicabilidade **sem alterar `category_id`**
+  - Evidência documentada em:
+    - `CHECKPOINT_2026-01-26_EPIC-4.2.1.md`
 
-- [ ] **4.2.2 Semantic recovery via contexto externo (condicional)**
-  - Investigação de dicionários e metadados externos
-  - Criação de `ctx_` explícito quando houver evidência
-  - Aplicação via overlay auditável
-  - Medição de impacto real na redução de unknown
+- [ ] **4.2.2 Semantic recovery via contexto externo (condicional)** — 🟨 STAND BY
+  - Execução condicionada à obtenção de dicionário externo confiável
+  - Investigação de metadados funcionais do sistema de origem
+  - Criação de `ctx_` explícito somente quando houver evidência determinística
+  - Aplicação via overlay auditável e reversível
+  - Medição de impacto real na redução de `category_unknown`
+  - Sem compromisso prévio de redução percentual
 
-Critério de aceite:
-- Redução de `category_unknown` apenas quando suportada por evidência externa
-- Regras versionáveis, explicáveis e reversíveis
+**Critérios de aceite:**
+- Redução de `category_unknown` **apenas** quando suportada por evidência externa
+- Regras explícitas, versionáveis, explicáveis e auditáveis
+- Não regressão do Gold v1
 
 ---
 
