@@ -17,3 +17,6 @@ __pycache__/
 *.zip
 
 *.drawio.bak
+
+# IDEs / editors
+.spyproject/
