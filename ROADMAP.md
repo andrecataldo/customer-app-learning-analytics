@@ -22,10 +22,10 @@ Este roadmap organiza a evolução do pipeline analítico considerando explicita
 - EPIC 1 - Bronze (Ingestão Raw Governada): ✅ Concluído
 - EPIC 2 - Silver (Reconciliação Semântica): ✅ Concluído
 - EPIC 3 - Gold (Fato + Views Analíticas): ✅ Concluído
-- EPIC 4 - Gold Hardening & Semantic Coverage: 🔜
+- EPIC 4 - Gold Hardening & Semantic Coverage: ⚙️ WIP
 - EPIC 5 - Dashboard + Validação: 🔜
 - EPIC 6 - Machine Learning Não Supervisionado (Exploratório): 🔜
-- EPIC 7 - Documentação + TCC (Resultados Preliminares): 🔜
+- EPIC 7 - Documentação + TCC (Resultados Preliminares): ⚙️ WIP
 
 ---
 
@@ -127,7 +127,7 @@ restrições do dado de origem.
 - Qualificar e, quando possível, reduzir `category_unknown` com evidência
 - Evitar inferência implícita ou regressão do modelo
 
-**Status:** ⏳ IN PROGRESS  
+**Status:** ✅ DONE (v1) / ⚙️ 4.2.2 STAND BY  
 **Pré-requisito:** EPIC 3 concluído e validado
 
 ---
@@ -227,28 +227,79 @@ metodológico e evitando inferência implícita.
 
 ## 🟦 EPIC 6 — Machine Learning Não Supervisionado (Exploratório)
 
-**Objetivo:** identificar padrões emergentes de comportamento de aprendizagem.
+**Objetivo:** segmentar alunos em perfis de participação e desempenho para apoiar análise e discussão pedagógica
 
-- [ ] 6.1 Definir unidade de análise (MVP: `user_id`)
-- [ ] 6.2 Feature engineering (dataset agregado)
-- [ ] 6.3 Normalização e preparação para ML
-- [ ] 6.4 Clustering (K-Means baseline)
-- [ ] 6.5 Avaliação e escolha do número de clusters
-- [ ] 6.6 Interpretação educacional dos clusters
-- [ ] 6.7 Visualização exploratória (PCA / UMAP)
-- [ ] 6.8 Documentar metodologia e resultados exploratórios
+- [ ] **6.0 Gerar snapshot reprodutível do dataset por usuário**
+    - Criar view `dbo.vw_user_features_v1` (agregação por `user_id`)
+    - Exportar CSV (`samples/epic6_user_features_v1.csv`)
+    - Versionar arquivo e registrar no `OBJECT_REGISTRY.md`
+    - Justificativa: restrição de privilégios / conectividade no Fabric
+
+- [ ] **6.1 Definir unidade de análise (MVP: `user_id`)**
+- [ ] **6.2 Feature engineering (dataset agregado)**
+- [ ] **6.3 Normalização e preparação para ML**
+- [ ] **6.4 Clustering (K-Means baseline)**
+- [ ] **6.5 Critérios de qualidade do agrupamento**
+    - silhouette (principal)
+    - estabilidade (seed / bootstrap simples)
+    - interpretabilidade (assinatura do cluster)
+
+- [ ] **6.6 Discussão pedagógica por perfil**
+    - nomear perfis com base nos centroides
+    - implicações: ações de tutoria/apoio/monitoramento por perfil
+- [ ] **6.7 Visualização exploratória (PCA / UMAP)**
+- [ ] **6.8 Documentar metodologia e resultados exploratórios**
 
 ---
 
-## 🟦 EPIC 7 — Documentação + TCC (Resultados Preliminares)
+## 🟦 EPIC 7 — TCC (Resultados Finais) + Documentação Final
 
-**Objetivo:** transformar a base técnica em narrativa científica.
+**Objetivo:** consolidar o estudo completo em narrativa científica (metodologia + resultados + discussão + conclusão) e finalizar os artefatos do repositório.
 
-- [ ] 7.1 Documentar arquitetura e pipeline reprodutível (inclui fontes de verdade)
-- [ ] 7.2 Redigir seção “Coleta e Preparação dos Dados”
-- [ ] 7.3 Redigir seção “Análise Descritiva Preliminar”
-- [ ] 7.4 Consolidar Resultados Preliminares (template do MBA + FDE/CEP)
-- [ ] 7.5 Revisão final para submissão
+- [ ] **7.0 Gate acadêmico final (alinhamento do estudo)**
+    - Unidade de análise: aluno (user_id)
+    - Objetivo revisado (verbo + finalidade)
+    - Perguntas de pesquisa (2–3)
+    - Critérios de sucesso (silhouette + estabilidade + interpretabilidade)
+    - Delimitação: xAPI/LRS como evidência empírica (não avaliação da tecnologia)
+
+- [ ] **7.1 Metodologia final (versão “congelada”)**
+	- Coleta e preparação dos dados (pipeline)
+	- Derivação de indicadores (operacionalização)
+	- Estratégia de análise (A→B→C→D)
+
+- [ ] **7.2 Resultados finais — Descritiva + Base analítica por aluno**
+	- distribuição por usuário (inclui outlier)
+	- justificativa do snapshot (SQL→CSV) / ou extração equivalente
+	- dataset final de features (lista/tabela)
+
+- [ ] **7.3 Resultados finais — Clusterização e validação**
+	- escolha de k (elbow + silhouette)
+	- centroides/perfis
+	- estabilidade (seed)
+
+- [ ] **7.4 Discussão e implicações pedagógicas**
+	- nomeação dos perfis
+	- ações/intervenções por perfil
+	- limitações e validade
+
+- [ ] **7.5 Conclusão + trabalhos futuros**
+	- resposta ao objetivo
+	- limites do estudo
+	- evolução para versão produtiva (Spark/Lakehouse)
+
+- [ ] **7.6 Documentação final do repositório**
+	- arquitetura/pipeline reprodutível (fontes de verdade)
+	- atualizar `OBJECT_REGISTRY.md`
+	- atualizar `README.md`
+	- checkpoint final do EPIC 7
+
+- [ ] **7.7 Revisão final e submissão**
+	- revisão ortográfica / formatação
+	- conformidade com template
+	- pacote final de entrega
+
+
 
 ---
 
